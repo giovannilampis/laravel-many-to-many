@@ -14,6 +14,12 @@
                   <h4 class="card-title"><span 
                     class="badge rounded-pill bg-primary">{{$project->category->name?? 'No Category' }}</span>
                   </h4>
+                  <h5>Technologies:</h5>
+                  @if($project->technologies)
+                    @foreach($project->technologies as $elem)
+                      <div>{{$elem->name}}</div>
+                    @endforeach
+                  @endif
                   <h5 class="card-title">{{ $project->title }}</h5>
                   <p class="card-text">{{ $project->description }}</p>
                   <a href="{{ route('admin.projects.index') }}" class="btn btn-info">INDEX</a>
