@@ -35,6 +35,7 @@ class ProjectController extends Controller
 
         return response()->view('admin.projects.create', compact('categories', 'technologies'));
         
+        
     }
 
     /**
@@ -48,20 +49,25 @@ class ProjectController extends Controller
         $request->validate(
             [
             'title' => 'required|max:20',
-            'category_id' => 'integer|exists:categories,id'
-            ],
-            [
+            'category_id' => 'integer|exists:categories,id',
+            'technologies' => 'exists:technologies,id'
+         /*
             'title.required' => 'Il campo "Title" deve essere necessariamente riempito',
             'title.max' => 'Bisogna scegliere un titolo composto da non più di 20 caratteri',
-            'title.unique' => "Non può essere scelto un titolo già assegnato ad un'altra rivista"
+            'title.unique' => "Non può essere scelto un titolo già assegnato ad un'altra rivista",
+            'technologies.exists' => ''*/
             ]
         );
 
-        dd($request->hasFile('cover_image'));
+        // dd($request->hasFile('cover_image'));
 
-    
-        Project::create($request->all());
+        $created_project = Project::create($request->all());
 
+        // dd($created_project);
+        if( $request->has('technologies') ){ 
+            $created_project->technologies()->attach($request->technologies);
+        }
+        
         return redirect()->route('admin.projects.index');
     }
 
@@ -86,7 +92,9 @@ class ProjectController extends Controller
     {
         $categories = Category::all();
 
-        return response()->view('admin.projects.edit', compact('project', 'categories'));
+        $technologies = Technology::all();
+
+        return response()->view('admin.projects.edit', compact('project', 'categories', 'technologies'));
         
     }
 
@@ -112,6 +120,10 @@ class ProjectController extends Controller
         );
 
         $project->update($request->all());
+
+        
+        $project->technologies()->sync($request->technologies);
+        
 
         return redirect()->route('admin.projects.show', compact('project'));
     }

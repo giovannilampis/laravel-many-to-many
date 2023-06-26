@@ -70,7 +70,8 @@
                 <div class="form-check">
                 <input class="form-check-input" 
                     type="checkbox" 
-                    value="" 
+                    name="technologies[]"
+                    value="{{$elem->id}}" 
                     id="project-chechbox-{{$elem->id}}">
                 <label class="form-check-label" for="project-chechbox-{{$elem->id}}">
                     {{ $elem->name }}

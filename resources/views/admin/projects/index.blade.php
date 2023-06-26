@@ -17,6 +17,11 @@
                       <h5 class="card-title">"{{ $project->title }}"</h5>
                       <h5 class="card-title">"{{ $project->subtitle }}"</h5>
                       <p class="card-text">"{{ $project->description }}"</p>
+                      <div>
+                        @foreach($project->technologies as $technology)
+                        {{$technology->name}}
+                        @endforeach
+                      </div>
                       <div class="d-flex justify-content-between">
                           <a href="{{ $project->url }}" class="btn btn-primary">VISIT</a>
                           <a href="{{ route('admin.projects.show', ['project'=>$project]) }}" class="btn btn-info">SHOW</a>

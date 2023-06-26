@@ -62,6 +62,28 @@
                 
             </select>
         </div>
+
+        {{-- ciclo delle technologies --}}
+
+        <div class="form-group">
+
+            @foreach ($technologies as $elem)
+                {{-- singola checkbox bootstrap --}}
+                <div class="form-check">
+                <input class="form-check-input" 
+                    @if($project->technologies->contains($elem))
+                    checked
+                    @endif
+                    type="checkbox" 
+                    name="technologies[]"
+                    value="{{$elem->id}}" 
+                    id="project-chechbox-{{$elem->id}}">
+                <label class="form-check-label" for="project-chechbox-{{$elem->id}}">
+                    {{ $elem->name }}
+                </label>
+                </div>
+            @endforeach
+        </div>
     
         <button type="submit" class="btn btn-primary">EDIT</button>
     
