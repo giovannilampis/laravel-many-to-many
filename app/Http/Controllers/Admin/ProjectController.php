@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Admin\Project;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Category;
+use App\Models\Admin\Technology;
 
 class ProjectController extends Controller
 {
@@ -30,7 +31,9 @@ class ProjectController extends Controller
     {
         $categories = Category::all();
 
-        return response()->view('admin.projects.create', compact('categories'));
+        $technologies = Technology::all();
+
+        return response()->view('admin.projects.create', compact('categories', 'technologies'));
         
     }
 

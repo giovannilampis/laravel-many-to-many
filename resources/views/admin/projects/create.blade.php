@@ -61,6 +61,26 @@
             </select>
         </div>
 
+        {{-- ciclo delle technologies --}}
+
+        <div class="form-group">
+
+            @foreach ($technologies as $elem)
+                {{-- singola checkbox bootstrap --}}
+                <div class="form-check">
+                <input class="form-check-input" 
+                    type="checkbox" 
+                    value="" 
+                    id="project-chechbox-{{$elem->id}}">
+                <label class="form-check-label" for="project-chechbox-{{$elem->id}}">
+                    {{ $elem->name }}
+                </label>
+                </div>
+            @endforeach
+        </div>
+
+      
+
         <button type="submit" class="btn btn-primary">CREATE</button>
     
       </form>
